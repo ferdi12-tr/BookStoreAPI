@@ -15,7 +15,10 @@ namespace BookStoreWebAPI
 			// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 			builder.Services.AddEndpointsApiExplorer();
 			builder.Services.AddSwaggerGen();
+
+			// All Custom Services
 			builder.Services.AddTransient<ICategoryService, CategoryService>();
+			builder.Services.AddTransient<IProductService, ProductService>();
 
 			var app = builder.Build();
 
