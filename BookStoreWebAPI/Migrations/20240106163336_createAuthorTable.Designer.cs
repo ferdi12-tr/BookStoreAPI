@@ -4,6 +4,7 @@ using BookStoreWebAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookStoreWebAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240106163336_createAuthorTable")]
+    partial class createAuthorTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,9 +32,6 @@ namespace BookStoreWebAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("IsBlogAuthor")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -43,6 +42,8 @@ namespace BookStoreWebAPI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Author");
                 });
@@ -165,8 +166,6 @@ namespace BookStoreWebAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AuthorId");
-
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Product");
@@ -198,6 +197,17 @@ namespace BookStoreWebAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("User");
+                });
+
+            modelBuilder.Entity("BookStoreWebAPI.Models.Author", b =>
+                {
+                    b.HasOne("BookStoreWebAPI.Models.Product", "Product")
+                        .WithMany("Author")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("BookStoreWebAPI.Models.Blog", b =>
@@ -232,26 +242,13 @@ namespace BookStoreWebAPI.Migrations
 
             modelBuilder.Entity("BookStoreWebAPI.Models.Product", b =>
                 {
-                    b.HasOne("BookStoreWebAPI.Models.Author", "Author")
-                        .WithMany("Products")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("BookStoreWebAPI.Models.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Author");
-
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("BookStoreWebAPI.Models.Author", b =>
-                {
-                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("BookStoreWebAPI.Models.Blog", b =>
@@ -262,6 +259,11 @@ namespace BookStoreWebAPI.Migrations
             modelBuilder.Entity("BookStoreWebAPI.Models.Category", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("BookStoreWebAPI.Models.Product", b =>
+                {
+                    b.Navigation("Author");
                 });
 
             modelBuilder.Entity("BookStoreWebAPI.Models.User", b =>
