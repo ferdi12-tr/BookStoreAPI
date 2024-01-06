@@ -8,7 +8,7 @@
         public double Price { get; set; }
         public int Stock { get; set; }
         public string? Image { get; set; }
-        public DateTime date { get; set; }
+        public DateTime Date { get; set; }
         public bool IsNewArrival { get; set; }
         public bool IsNewFeatured { get; set; }
         public bool IsMostViewed { get; set; }
