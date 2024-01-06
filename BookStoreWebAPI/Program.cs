@@ -1,3 +1,6 @@
+using BookStoreWebAPI.Models.Interfaces;
+using BookStoreWebAPI.Models.Services;
+
 namespace BookStoreWebAPI
 {
 	public class Program
@@ -12,6 +15,7 @@ namespace BookStoreWebAPI
 			// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 			builder.Services.AddEndpointsApiExplorer();
 			builder.Services.AddSwaggerGen();
+			builder.Services.AddTransient<ICategoryService, CategoryService>();
 
 			var app = builder.Build();
 
