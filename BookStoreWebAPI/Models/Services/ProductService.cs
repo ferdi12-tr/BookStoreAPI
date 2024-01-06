@@ -1,5 +1,4 @@
-﻿using BookStoreWebAPI.DTOs;
-using BookStoreWebAPI.Models.Interfaces;
+﻿using BookStoreWebAPI.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookStoreWebAPI.Models.Services
@@ -12,7 +11,7 @@ namespace BookStoreWebAPI.Models.Services
         {
             dataContext = new DataContext();
         }
-        public List<ProductDetailDTO> GetAllProducts()
+        public List<Product> GetAllProducts()
 		{
 			try
 			{
@@ -20,22 +19,23 @@ namespace BookStoreWebAPI.Models.Services
 									.Where(x => x.Stock > 0)
 									.Include(y => y.Author)
 									.Include(z => z.Category)
-									.Select(product => new ProductDetailDTO
+									.Select(pr => new Product
 									{
-										Id = product.Id,
-										Name = product.Name,
-										Description = product.Description,
-										Price = product.Price,
-										Stock = product.Stock,
-										Image = product.Image,
-										Date = product.Date,
-										IsMostViewed = product.IsMostViewed,
-										IsNewArrival = product.IsNewArrival,
-										IsNewFeatured = product.IsNewFeatured,
-										Slug = product.Slug,
-										CategoryName = product.Category.Name,
-										AuthorFullName = product.Author.FullName,
-
+										Id = pr.Id,
+										Name = pr.Name,
+										Description = pr.Description,
+										Price = pr.Price,
+										Stock = pr.Stock,
+										Image = pr.Image,
+										Date = pr.Date,
+										IsMostViewed = pr.IsMostViewed,
+										IsNewArrival = pr.IsNewArrival,
+										IsNewFeatured = pr.IsNewFeatured,
+										Slug = pr.Slug,
+										CategoryId = pr.CategoryId,
+										Category = pr.Category,
+										AuthorId = pr.AuthorId,
+										Author = pr.Author
 									})
 									.ToList();
 				return productList;

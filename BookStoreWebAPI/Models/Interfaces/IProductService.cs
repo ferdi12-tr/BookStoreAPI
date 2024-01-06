@@ -1,8 +1,7 @@
-﻿using BookStoreWebAPI.DTOs;
-namespace BookStoreWebAPI.Models.Interfaces
+﻿namespace BookStoreWebAPI.Models.Interfaces
 {
 	public interface IProductService
 	{
-		public List<ProductDetailDTO> GetAllProducts();
+		public List<Product> GetAllProducts();
 	}
 }

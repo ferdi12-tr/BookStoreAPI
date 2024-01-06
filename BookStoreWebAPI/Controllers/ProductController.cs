@@ -1,7 +1,5 @@
-﻿using BookStoreWebAPI.DTOs;
-using BookStoreWebAPI.Models;
+﻿using BookStoreWebAPI.Models;
 using BookStoreWebAPI.Models.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookStoreWebAPI.Controllers
@@ -17,7 +15,7 @@ namespace BookStoreWebAPI.Controllers
         }
 
         [HttpGet]
-		public IEnumerable<ProductDetailDTO> GetAllProducts()
+		public IEnumerable<Product> GetAllProducts()
 		{
 			var products = productService.GetAllProducts();
 			return products;
