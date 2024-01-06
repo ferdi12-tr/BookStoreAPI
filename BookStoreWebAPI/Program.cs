@@ -1,5 +1,8 @@
 using BookStoreWebAPI.Models.Interfaces;
 using BookStoreWebAPI.Models.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace BookStoreWebAPI
 {
@@ -16,9 +19,32 @@ namespace BookStoreWebAPI
 			builder.Services.AddEndpointsApiExplorer();
 			builder.Services.AddSwaggerGen();
 
-			// All Custom Services
+			// All Custom Database Services
 			builder.Services.AddTransient<ICategoryService, CategoryService>();
 			builder.Services.AddTransient<IProductService, ProductService>();
+
+			//Authentication Services
+			builder.Services.AddTransient<IAuthService, AuthService>();
+
+			builder.Services.AddTransient<ITokenService, TokenService>();
+			builder.Services.AddAuthentication(option =>
+			{
+				option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+				option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+				option.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+			}).AddJwtBearer(o =>
+			{
+				o.TokenValidationParameters = new TokenValidationParameters
+				{
+					ValidIssuer = builder.Configuration["AppSettings:ValidIssuer"],
+					ValidAudience = builder.Configuration["AppSettings:ValidAudience"],
+					IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["AppSettings:Secret"])),
+					ValidateIssuer = true,
+					ValidateAudience = true,
+					ValidateLifetime = false,
+					ValidateIssuerSigningKey = true
+				};
+			});
 
 			var app = builder.Build();
 
@@ -33,6 +59,7 @@ namespace BookStoreWebAPI
 
 			app.UseAuthorization();
 
+			app.UseAuthentication();
 
 			app.MapControllers();
 
