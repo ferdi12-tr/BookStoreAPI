@@ -46,7 +46,13 @@ namespace BookStoreWebAPI
 				};
 			});
 
-			var app = builder.Build();
+			//serialize the included object to json
+			builder.Services.AddControllers()
+				.AddNewtonsoftJson(opt =>
+								opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+			
+				
+				var app = builder.Build();
 
 			// Configure the HTTP request pipeline.
 			if (app.Environment.IsDevelopment())
