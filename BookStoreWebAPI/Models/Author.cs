@@ -9,7 +9,6 @@ namespace BookStoreWebAPI.Models
         public string? Surname { get; set; }
         [NotMapped]
         public string? FullName { get =>  Name + Surname; }
-        public bool IsBlogAuthor { get; set; }
         public List<Product>? Products { get; set; }
     }
 }

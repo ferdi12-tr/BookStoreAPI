@@ -50,9 +50,9 @@ namespace BookStoreWebAPI
 			builder.Services.AddControllers()
 				.AddNewtonsoftJson(opt =>
 								opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-			
-				
-				var app = builder.Build();
+
+
+			var app = builder.Build();
 
 			// Configure the HTTP request pipeline.
 			if (app.Environment.IsDevelopment())
