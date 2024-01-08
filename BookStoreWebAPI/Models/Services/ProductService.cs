@@ -46,5 +46,10 @@ namespace BookStoreWebAPI.Models.Services
 				throw new Exception(e.Message);
 			}
 		}
+		public List<Category>? GetAllCategory()
+		{
+			var categoryList = dataContext.Category?.Include(x => x.Products).ToList();
+			return categoryList;
+		}
 	}
 }

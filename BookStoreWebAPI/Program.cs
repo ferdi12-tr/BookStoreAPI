@@ -20,7 +20,6 @@ namespace BookStoreWebAPI
 			builder.Services.AddSwaggerGen();
 
 			// All Custom Database Services
-			builder.Services.AddTransient<ICategoryService, CategoryService>();
 			builder.Services.AddTransient<IProductService, ProductService>();
 			builder.Services.AddTransient<IBlogService, BlogService>();
 
