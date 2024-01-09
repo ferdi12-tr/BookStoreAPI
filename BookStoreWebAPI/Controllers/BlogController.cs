@@ -37,7 +37,7 @@ namespace BookStoreWebAPI.Controllers
 
 		[HttpPost]
 		[Route("AddBlog")]
-		public IActionResult AddBlogPost(BlogDetailDTO blog)
+		public IActionResult AddBlogPost([FromBody] BlogDetailDTO blog)
 		{
 			if (blog == null)
 			{
