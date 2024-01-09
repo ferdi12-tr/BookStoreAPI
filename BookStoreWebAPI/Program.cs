@@ -19,8 +19,21 @@ namespace BookStoreWebAPI
 			builder.Services.AddEndpointsApiExplorer();
 			builder.Services.AddSwaggerGen();
 
-			// All Custom Database Services
-			builder.Services.AddTransient<IProductService, ProductService>();
+            //Set Cors Policy
+            builder.Services.AddCors(options =>
+            {
+
+                options.AddDefaultPolicy(
+                    policy =>
+                    {
+                        policy.AllowAnyOrigin()
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });
+            });
+
+            // All Custom Database Services
+            builder.Services.AddTransient<IProductService, ProductService>();
 			builder.Services.AddTransient<IBlogService, BlogService>();
 
 			//Authentication Services
@@ -62,14 +75,16 @@ namespace BookStoreWebAPI
 			}
 
 			app.UseHttpsRedirection();
+			
+			app.UseAuthentication();
 
 			app.UseAuthorization();
 
-			app.UseAuthentication();
-
 			app.MapControllers();
 
-			app.Run();
+            app.UseCors();
+
+            app.Run();
 		}
 	}
 }
