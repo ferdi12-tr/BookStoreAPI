@@ -35,9 +35,10 @@ namespace BookStoreWebAPI
             // All Custom Database Services
             builder.Services.AddTransient<IProductService, ProductService>();
 			builder.Services.AddTransient<IBlogService, BlogService>();
+			builder.Services.AddTransient<IUserService, UserService>();
 
-			//Authentication Services
-			builder.Services.AddTransient<IAuthService, AuthService>();
+            //Authentication Services
+            builder.Services.AddTransient<IAuthService, AuthService>();
 
 			builder.Services.AddTransient<ITokenService, TokenService>();
 			builder.Services.AddAuthentication(option =>
