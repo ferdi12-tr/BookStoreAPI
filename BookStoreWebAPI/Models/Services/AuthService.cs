@@ -5,10 +5,13 @@ namespace BookStoreWebAPI.Models.Services
 	public class AuthService : IAuthService
 	{
 		private readonly ITokenService tokenService;
+		private readonly IUserService userService;
 
-        public AuthService(ITokenService tokenService)
+        public AuthService(ITokenService tokenService, IUserService userService)
         {
             this.tokenService = tokenService;
+            this.userService = userService;
+
         }
         public async Task<UserLoginResponse> LoginUserAsync(UserLoginRequest request)
 		{
@@ -19,7 +22,9 @@ namespace BookStoreWebAPI.Models.Services
 				throw new ArgumentNullException(nameof(request));
 			}
 
-			if (request.Username == "Ferdi" && request.Password == "123")
+			var user = userService.GetUserByPasswordUsername(request.Username, request.Password);
+
+			if (user != null)
 			{
 				var generatedToken = await tokenService.GenerateTokenAsync(new GenerateRequestToken
 				{
@@ -29,6 +34,10 @@ namespace BookStoreWebAPI.Models.Services
 				response.AuthenticateResult = true;
 				response.AuthToken = generatedToken.Token;
 			}
+			else
+			{
+                throw new UnauthorizedAccessException();
+            }
 
 			return response;
 		}

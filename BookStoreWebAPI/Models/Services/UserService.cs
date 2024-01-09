@@ -51,7 +51,7 @@ namespace BookStoreWebAPI.Models.Services
             }
         }
 
-        public User GetUserByPasswordUsername(string password, string username)
+        public User GetUserByPasswordUsername(string username, string password)
         {
             try
             {

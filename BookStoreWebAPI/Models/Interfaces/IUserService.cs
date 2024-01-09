@@ -4,7 +4,7 @@
     {
         public IEnumerable<User> GetAllUsers();
         public User GetUserById(int id);
-        public User GetUserByPasswordUsername(string password, string username);
+        public User GetUserByPasswordUsername(string username, string password);
         public bool AddUser(User user);
 
     }
