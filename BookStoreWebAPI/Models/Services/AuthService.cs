@@ -33,6 +33,7 @@ namespace BookStoreWebAPI.Models.Services
 				response.AccessTokenExpireDate = generatedToken.TokenExpireDate;
 				response.AuthenticateResult = true;
 				response.AuthToken = generatedToken.Token;
+				response.CurrentUser = user;
 			}
 			else
 			{

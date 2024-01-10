@@ -23,7 +23,6 @@ namespace BookStoreWebAPI.Controllers
 
 		[HttpGet]
 		[Route("AllProducts")]
-		[Authorize]
 		public IEnumerable<ProductDetailDTO> GetAllProducts()
 		{
 			var products = productService.GetAllProducts();

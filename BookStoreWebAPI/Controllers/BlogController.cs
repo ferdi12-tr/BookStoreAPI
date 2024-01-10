@@ -1,6 +1,7 @@
 ﻿using BookStoreWebAPI.DTOs;
 using BookStoreWebAPI.Models;
 using BookStoreWebAPI.Models.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -83,6 +84,7 @@ namespace BookStoreWebAPI.Controllers
 
 		[HttpPost]
 		[Route("AddComment")]
+		[Authorize]
 		public IActionResult AddComment([FromBody] CommentDetailDTO comment)
 		{
 			if (comment == null)
