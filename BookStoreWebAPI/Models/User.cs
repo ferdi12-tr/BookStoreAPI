@@ -10,6 +10,9 @@
         public string? Username { get; set; }
 		public List<Blog>? Blogs { get; set; }
 		public List<Comment>? Comments { get; set; }
+        public List<Address>? Addresses { get; set; }
+        public List<Order>? Orders { get; set; }
 
-	}
+
+    }
 }

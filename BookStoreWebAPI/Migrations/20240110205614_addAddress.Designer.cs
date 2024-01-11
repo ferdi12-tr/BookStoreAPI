@@ -4,6 +4,7 @@ using BookStoreWebAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookStoreWebAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240110205614_addAddress")]
+    partial class addAddress
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -88,9 +90,6 @@ namespace BookStoreWebAPI.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Slug")
                         .HasColumnType("nvarchar(max)");
 
@@ -150,35 +149,6 @@ namespace BookStoreWebAPI.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Comment");
-                });
-
-            modelBuilder.Entity("BookStoreWebAPI.Models.Order", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Order");
                 });
 
             modelBuilder.Entity("BookStoreWebAPI.Models.Product", b =>
@@ -303,25 +273,6 @@ namespace BookStoreWebAPI.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("BookStoreWebAPI.Models.Order", b =>
-                {
-                    b.HasOne("BookStoreWebAPI.Models.Product", "Product")
-                        .WithMany("Orders")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BookStoreWebAPI.Models.User", "User")
-                        .WithMany("Orders")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("BookStoreWebAPI.Models.Product", b =>
                 {
                     b.HasOne("BookStoreWebAPI.Models.Author", "Author")
@@ -356,11 +307,6 @@ namespace BookStoreWebAPI.Migrations
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("BookStoreWebAPI.Models.Product", b =>
-                {
-                    b.Navigation("Orders");
-                });
-
             modelBuilder.Entity("BookStoreWebAPI.Models.User", b =>
                 {
                     b.Navigation("Addresses");
@@ -368,8 +314,6 @@ namespace BookStoreWebAPI.Migrations
                     b.Navigation("Blogs");
 
                     b.Navigation("Comments");
-
-                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }
