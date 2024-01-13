@@ -33,6 +33,7 @@ namespace BookStoreWebAPI.Models.Services
 										IsNewArrival = pr.IsNewArrival,
 										IsNewFeatured = pr.IsNewFeatured,
 										Slug = pr.Slug,
+										AuthorName = pr.Author.FullName,
 										CategoryId = pr.CategoryId,
 										AuthorId = pr.AuthorId,
 									})
