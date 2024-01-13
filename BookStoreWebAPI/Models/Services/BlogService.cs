@@ -18,6 +18,7 @@ namespace BookStoreWebAPI.Models.Services
 			var newBlog = new Blog
 			{
 				Title = post.Title,
+				Image=post.Image,
 				BlogContent = post.BlogContent,
 				AuthorId = post.AuthorId,
 				Slug = Utils.Utils.CenerateSlug(post.Title),
@@ -66,9 +67,11 @@ namespace BookStoreWebAPI.Models.Services
 					{
 						BlogId = s.Id,
 						Title = s.Title,
+						Image = s.Image,
 						BlogContent = s.BlogContent,
 						Slug = s.Slug,
 						AuthorId = s.Author.Id,
+						AuthorUserName = s.Author.Username,
 						Date = s.Date,
 					})
 					.ToList();
@@ -91,6 +94,7 @@ namespace BookStoreWebAPI.Models.Services
 												{
 													BlogComment = c.BlogComment,
 													Date = c.Date,
+													AuthorName = c.User.Username,
 													UserId = c.UserId,
 													BlogId = c.BlogId,	
 												})
