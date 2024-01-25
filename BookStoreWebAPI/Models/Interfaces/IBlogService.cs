@@ -4,10 +4,10 @@ namespace BookStoreWebAPI.Models.Interfaces
 {
 	public interface IBlogService
 	{
-		public List<BlogDetailDTO>? GetAllBlogPosts();
+		public Task<List<BlogDetailDTO>?> GetAllBlogPostsAsync();
 
-		public List<CommentDetailDTO>? GetCommentByBlogId(int id);	
-		public void AddBlogPost(BlogDetailDTO post);
-		public bool AddComment(CommentDetailDTO comment);
+		public Task<List<CommentDetailDTO>?> GetCommentByBlogIdAsync(int id);	
+		public Task AddBlogPostAsync(BlogDetailDTO post);
+		public Task<bool> AddCommentAsync(CommentDetailDTO comment);
 	}
 }

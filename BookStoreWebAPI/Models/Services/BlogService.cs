@@ -13,7 +13,7 @@ namespace BookStoreWebAPI.Models.Services
             dataContext = new DataContext();
         }
 
-		public void AddBlogPost(BlogDetailDTO post)
+		public async Task AddBlogPostAsync(BlogDetailDTO post)
 		{
 			var newBlog = new Blog
 			{
@@ -27,7 +27,7 @@ namespace BookStoreWebAPI.Models.Services
 			try
 			{
 				dataContext.Blog?.Add(newBlog);
-				dataContext.SaveChanges();
+				await dataContext.SaveChangesAsync();
 			}
 			catch (Exception e)
 			{
@@ -35,7 +35,7 @@ namespace BookStoreWebAPI.Models.Services
 			}
 		}
 
-		public bool AddComment(CommentDetailDTO comment)
+		public async Task<bool> AddCommentAsync(CommentDetailDTO comment)
 		{
 			var newComment = new Comment
 			{
@@ -48,7 +48,7 @@ namespace BookStoreWebAPI.Models.Services
 			try
 			{
 				dataContext.Comment.Add(newComment);
-				dataContext.SaveChanges();
+				await dataContext.SaveChangesAsync();
 				return true;
 			}
 			catch (Exception e)
@@ -57,11 +57,11 @@ namespace BookStoreWebAPI.Models.Services
 			}
 		}
 
-		public List<BlogDetailDTO>? GetAllBlogPosts()
+		public async Task<List<BlogDetailDTO>?> GetAllBlogPostsAsync()
 		{
 			try
 			{
-				var blogPosts = dataContext.Blog?
+				var blogPosts = await dataContext.Blog
 					.Include(x => x.Author)
 					.Select(s => new BlogDetailDTO
 					{
@@ -74,7 +74,7 @@ namespace BookStoreWebAPI.Models.Services
 						AuthorUserName = s.Author.Username,
 						Date = s.Date,
 					})
-					.ToList();
+					.ToListAsync();
 				return blogPosts;
 			}
 			catch (Exception e)
@@ -83,11 +83,11 @@ namespace BookStoreWebAPI.Models.Services
 				throw new Exception(e.Message);
 			}
 		}
-		public List<CommentDetailDTO>? GetCommentByBlogId(int id)
+		public async Task<List<CommentDetailDTO>?> GetCommentByBlogIdAsync(int id)
 		{
 			try
 			{
-				var comments = dataContext.Comment?
+				var comments = await dataContext.Comment
 												.Where(x => x.BlogId == id)
 												.Include(u => u.User)
 												.Select(c => new CommentDetailDTO
@@ -98,7 +98,7 @@ namespace BookStoreWebAPI.Models.Services
 													UserId = c.UserId,
 													BlogId = c.BlogId,	
 												})
-												.ToList();
+												.ToListAsync();
 				return comments;
 			}
 			catch (Exception e)

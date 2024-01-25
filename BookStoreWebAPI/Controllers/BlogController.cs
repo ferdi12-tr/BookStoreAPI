@@ -22,11 +22,11 @@ namespace BookStoreWebAPI.Controllers
 		#region Blogs
 		[HttpGet]
 		[Route("GetBlogs")]
-		public ActionResult<IEnumerable<BlogDetailDTO>?> GetAllBlogPosts()
+		public async Task<ActionResult<IEnumerable<BlogDetailDTO>?>> GetAllBlogPosts()
 		{
 			try
 			{
-				var allBlog = blogService.GetAllBlogPosts();
+				var allBlog = await blogService.GetAllBlogPostsAsync();
 				return Ok(allBlog);
 			}
 			catch (Exception e)
@@ -39,7 +39,7 @@ namespace BookStoreWebAPI.Controllers
 		[HttpPost]
 		[Route("AddBlog")]
         [Authorize]
-        public IActionResult AddBlogPost([FromBody] BlogDetailDTO blog)
+        public async Task<IActionResult> AddBlogPost([FromBody] BlogDetailDTO blog)
 		{
 			if (blog == null)
 			{
@@ -47,7 +47,7 @@ namespace BookStoreWebAPI.Controllers
 			}
 			try
 			{
-				blogService.AddBlogPost(blog);
+				await blogService.AddBlogPostAsync(blog);
 				return Ok("Add Blog Successfully");
 			}
 			catch (Exception e)
@@ -64,7 +64,7 @@ namespace BookStoreWebAPI.Controllers
 
 		[HttpGet]
 		[Route("GetComment/{blogId}")]
-        public ActionResult<IEnumerable<CommentDetailDTO>?> GetCommentByBlogId(int blogId = 0) 
+        public async Task<ActionResult<IEnumerable<CommentDetailDTO>?>> GetCommentByBlogId(int blogId = 0) 
         {
 			if (blogId == 0)
 			{
@@ -73,7 +73,7 @@ namespace BookStoreWebAPI.Controllers
 
 			try
 			{
-				var allcomment = blogService.GetCommentByBlogId(blogId);
+				var allcomment = await blogService.GetCommentByBlogIdAsync(blogId);
 				return Ok(allcomment);
 			}
 			catch (Exception e)
@@ -86,7 +86,7 @@ namespace BookStoreWebAPI.Controllers
 		[HttpPost]
 		[Route("AddComment")]
 		[Authorize]
-		public IActionResult AddComment([FromBody] CommentDetailDTO comment)
+		public async Task<IActionResult> AddComment([FromBody] CommentDetailDTO comment)
 		{
 			if (comment == null)
 			{
@@ -95,7 +95,7 @@ namespace BookStoreWebAPI.Controllers
 			
 			try
 			{
-				bool result = blogService.AddComment(comment);
+				bool result = await blogService.AddCommentAsync(comment);
 				return Ok("Add Comment Successfully");
 			}
 			catch (Exception e)
