@@ -52,11 +52,11 @@ namespace BookStoreWebAPI.Controllers
 
         [HttpPost]
         [Route("AddUser")]
-        public IActionResult AddUser([FromBody] User user) 
+        public async Task<IActionResult> AddUser([FromBody] User user) 
         {
             try
             {
-                userService.AddUser(user);
+                await userService.AddUserAsync(user);
                 return StatusCode(200);
             }
             catch (Exception e)

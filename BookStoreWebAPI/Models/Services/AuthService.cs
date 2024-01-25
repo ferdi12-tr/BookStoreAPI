@@ -22,7 +22,7 @@ namespace BookStoreWebAPI.Models.Services
 				throw new ArgumentNullException(nameof(request));
 			}
 
-			var user = userService.GetUserByPasswordUsername(request.Username, request.Password);
+			var user = await userService.GetUserByPasswordUsernameAsync(request.Username, request.Password);
 
 			if (user != null)
 			{

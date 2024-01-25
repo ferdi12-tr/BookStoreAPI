@@ -1,4 +1,5 @@
 ﻿using BookStoreWebAPI.Models.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookStoreWebAPI.Models.Services
 {
@@ -9,12 +10,12 @@ namespace BookStoreWebAPI.Models.Services
         {
             dataContext = new DataContext();
         }
-        public bool AddUser(User user)
+        public async Task<bool> AddUserAsync(User user)
         {
             try
             {
-                dataContext.Add(user);
-                dataContext.SaveChanges();
+                dataContext.User?.Add(user);
+                await dataContext.SaveChangesAsync();
                 return true;
             }
             catch (Exception e)
@@ -51,12 +52,13 @@ namespace BookStoreWebAPI.Models.Services
             }
         }
 
-        public User GetUserByPasswordUsername(string username, string password)
+        public async Task<User> GetUserByPasswordUsernameAsync(string username, string password)
         {
             try
             {
-                var user = dataContext.User.FirstOrDefault(x => String.Equals(password, x.Password) && String.Equals(username, x.Username));
-                return user;
+                var user = await dataContext.User.FirstOrDefaultAsync(x => String.Equals(password, x.Password) && String.Equals(username, x.Username));
+
+				return user;
             }
             catch (Exception e)
             {
