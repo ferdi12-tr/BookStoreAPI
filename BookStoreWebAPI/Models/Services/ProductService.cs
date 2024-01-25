@@ -12,11 +12,11 @@ namespace BookStoreWebAPI.Models.Services
         {
             dataContext = new DataContext();
         }
-        public List<ProductDetailDTO> GetAllProducts()
+        public async Task<List<ProductDetailDTO>> GetAllProductsAsync()
 		{
 			try
 			{
-				var productList = dataContext.Product?
+				var productList = await dataContext.Product
 									.Where(x => x.Stock > 0)
 									.Include(y => y.Author)
 									.Include(z => z.Category)
@@ -37,7 +37,7 @@ namespace BookStoreWebAPI.Models.Services
 										CategoryId = pr.CategoryId,
 										AuthorId = pr.AuthorId,
 									})
-									.ToList();
+									.ToListAsync();
 				return productList;
 			}
 			catch (Exception e)
@@ -46,11 +46,11 @@ namespace BookStoreWebAPI.Models.Services
 				throw new Exception(e.Message);
 			}
 		}
-		public ProductDetailDTO GetProductById(int id)
+		public async Task<ProductDetailDTO> GetProductByIdAsync(int id)
 		{
 			try
 			{
-				var product = dataContext.Product?
+				var product = await dataContext.Product
 					.Where(x => x.Id == id)
 					.Include(a => a.Author)
 					.Include(c => c.Category)
@@ -71,7 +71,7 @@ namespace BookStoreWebAPI.Models.Services
 						AuthorId = pr.AuthorId,
 
 					})
-					.FirstOrDefault();
+					.FirstOrDefaultAsync();
 				return product;
 			}
 			catch (Exception e)
@@ -80,7 +80,7 @@ namespace BookStoreWebAPI.Models.Services
 			}
 		}
 
-		public bool AddProduct(ProductDetailDTO product)
+		public async Task<bool> AddProductAsync(ProductDetailDTO product)
 		{
 			var newProduct = new Product
 			{
@@ -100,7 +100,7 @@ namespace BookStoreWebAPI.Models.Services
 			try
 			{
 				dataContext.Product?.Add(newProduct);
-				dataContext.SaveChanges();
+				await dataContext.SaveChangesAsync();
 				return true;
 			}
 			catch (Exception e)
@@ -108,9 +108,9 @@ namespace BookStoreWebAPI.Models.Services
 				throw new Exception(e.Message);
 			}
 		}
-		public List<Category>? GetAllCategory()
+		public async Task<List<Category>?> GetAllCategoryAsync()
 		{
-			var categoryList = dataContext.Category?.Include(x => x.Products).ToList();
+			var categoryList = await dataContext.Category.Include(x => x.Products).ToListAsync();
 			return categoryList;
 		}
 	}

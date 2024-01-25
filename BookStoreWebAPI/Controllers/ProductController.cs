@@ -23,15 +23,15 @@ namespace BookStoreWebAPI.Controllers
 
 		[HttpGet]
 		[Route("AllProducts")]
-		public IEnumerable<ProductDetailDTO> GetAllProducts()
+		public async Task<IEnumerable<ProductDetailDTO>> GetAllProducts()
 		{
-			var products = productService.GetAllProducts();
+			var products = await productService.GetAllProductsAsync();
 			return products;
 		}
 
 		[HttpGet]
 		[Route("Product/{productId}")]
-		public ActionResult<Product> GetProductById(int productId = 0) 
+		public async Task<ActionResult<Product>> GetProductById(int productId = 0) 
 		{
 			if (productId == 0)
 			{
@@ -39,7 +39,7 @@ namespace BookStoreWebAPI.Controllers
 			}
 			try
 			{
-				var product = productService.GetProductById(productId);
+				var product = await productService.GetProductByIdAsync(productId);
 				return Ok(product);
 			}
 			catch (Exception e)
@@ -51,7 +51,7 @@ namespace BookStoreWebAPI.Controllers
 
 		[HttpPost]
 		[Route("AddProduct")]
-		public IActionResult AddProduct([FromBody] ProductDetailDTO product)
+		public async Task<IActionResult> AddProduct([FromBody] ProductDetailDTO product)
 		{
 			if (product == null)
 			{
@@ -59,7 +59,7 @@ namespace BookStoreWebAPI.Controllers
 			}
 			try
 			{
-				productService.AddProduct(product);
+				await productService.AddProductAsync(product);
 				return Ok("Add Product Successfully.");
 			}
 			catch (Exception e)
@@ -75,9 +75,9 @@ namespace BookStoreWebAPI.Controllers
 
 		[HttpGet]
 		[Route("AllCategories")]
-		public List<Category>? GetAllCategories()
+		public async Task<List<Category>?> GetAllCategories()
 		{
-			var categoryList = productService.GetAllCategory();
+			var categoryList = await productService.GetAllCategoryAsync();
 			return categoryList;
 		}
 		#endregion
