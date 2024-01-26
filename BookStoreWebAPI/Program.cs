@@ -36,9 +36,10 @@ namespace BookStoreWebAPI
             builder.Services.AddTransient<IProductService, ProductService>();
 			builder.Services.AddTransient<IBlogService, BlogService>();
 			builder.Services.AddTransient<IUserService, UserService>();
+			builder.Services.AddTransient<IOrderService, OrderService>();
 
-            //Authentication Services
-            builder.Services.AddTransient<IAuthService, AuthService>();
+			//Authentication Services
+			builder.Services.AddTransient<IAuthService, AuthService>();
 
 			builder.Services.AddTransient<ITokenService, TokenService>();
 			builder.Services.AddAuthentication(option =>
