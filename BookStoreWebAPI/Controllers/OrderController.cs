@@ -86,17 +86,17 @@ namespace BookStoreWebAPI.Controllers
 
 		[HttpPost]
 		[Route("AddAddress")]
-		public async Task<IActionResult> AddAddress(Address address)
+		public async Task<ActionResult<Address>> AddAddress(Address address)
 		{
 			if (address == null)
 			{
 				return BadRequest("Address is not Valid");
 			}
-
+			
 			try
 			{
-				await orderService.AddAddressAsync(address);
-				return Ok("Add Address Successfully");
+				var checkAddress = await orderService.AddAddressAsync(address);
+				return Ok(checkAddress);
 			}
 			catch (Exception e)
 			{
@@ -122,6 +122,22 @@ namespace BookStoreWebAPI.Controllers
 			catch (Exception e)
 			{
 				logger.LogError($"OrderController ----- GetAddressByUserId ----- {e.Message}");
+				return StatusCode(500, "Internal server error");
+			}
+		}
+
+		[HttpPut]
+		[Route("UpdateAddress")]
+		public async Task<IActionResult> UpdateAddress([FromBody] Address address)
+		{
+			try
+			{
+				await orderService.UpdateAddressAsync(address);
+				return Ok();
+			}
+			catch (Exception e)
+			{
+				logger.LogError($"OrderController ----- UpdateAddress ----- {e.Message}");
 				return StatusCode(500, "Internal server error");
 			}
 		}

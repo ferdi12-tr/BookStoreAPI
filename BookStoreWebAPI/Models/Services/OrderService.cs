@@ -77,12 +77,13 @@ namespace BookStoreWebAPI.Models.Services
 			}
 		}
 
-		public async Task AddAddressAsync(Address address)
+		public async Task<Address> AddAddressAsync(Address address)
 		{
 			try
 			{
-				dataContext.Address?.Add(address);
-				await dataContext.SaveChangesAsync();	
+				var result = dataContext.Address?.Add(address);
+				await dataContext.SaveChangesAsync();
+				return result.Entity;
 			}
 			catch (Exception e)
 			{
@@ -96,6 +97,20 @@ namespace BookStoreWebAPI.Models.Services
 			{
 				var address = await dataContext.Address.FirstOrDefaultAsync(x => x.UserId == userId);
 				return address;
+			}
+			catch (Exception e)
+			{
+				throw new Exception(e.Message);
+			}
+		}
+
+		public async Task<Address> UpdateAddressAsync(Address address)
+		{
+			try
+			{
+				var result = dataContext.Update(address);
+				await dataContext.SaveChangesAsync();
+				return result.Entity;
 			}
 			catch (Exception e)
 			{
