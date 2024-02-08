@@ -83,14 +83,14 @@ namespace BookStoreWebAPI
 			{
 				ForwardedHeaders = ForwardedHeaders.All
 			});
+
+            app.UseCors("CorsPolicy");
 			
 			app.UseAuthentication();
 
 			app.UseAuthorization();
 
 			app.MapControllers();
-
-            app.UseCors();
 
             app.Run();
 		}
