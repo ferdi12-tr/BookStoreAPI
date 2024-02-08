@@ -3,6 +3,8 @@ using BookStoreWebAPI.Models.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using BookStoreWebAPI.Extensions;
+using Microsoft.AspNetCore.HttpOverrides;
 
 namespace BookStoreWebAPI
 {
@@ -20,17 +22,10 @@ namespace BookStoreWebAPI
 			builder.Services.AddSwaggerGen();
 
             //Set Cors Policy
-            builder.Services.AddCors(options =>
-            {
+            builder.Services.ConfigureCors();
 
-                options.AddDefaultPolicy(
-                    policy =>
-                    {
-                        policy.AllowAnyOrigin()
-                            .AllowAnyHeader()
-                            .AllowAnyMethod();
-                    });
-            });
+			//configure IIS
+			builder.Services.ConfigureIISIntegration();
 
             // All Custom Database Services
             builder.Services.AddTransient<IProductService, ProductService>();
@@ -72,11 +67,22 @@ namespace BookStoreWebAPI
 			// Configure the HTTP request pipeline.
 			if (app.Environment.IsDevelopment())
 			{
+				app.UseDeveloperExceptionPage();
 				app.UseSwagger();
 				app.UseSwaggerUI();
 			}
+			else
+			{
+				app.UseHsts();
+			}
 
 			app.UseHttpsRedirection();
+
+			app.UseStaticFiles();
+			app.UseForwardedHeaders(new ForwardedHeadersOptions // forward proxy header to the current request
+			{
+				ForwardedHeaders = ForwardedHeaders.All
+			});
 			
 			app.UseAuthentication();
 
