@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStoreWebAPI", "BookStoreWebAPI.csproj", "{572A3700-5C23-49BB-9C9B-88E0C57783E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookStoreWebAPI", "BookStoreWebAPI.csproj", "{572A3700-5C23-49BB-9C9B-88E0C57783E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "..\Contracts\Contracts.csproj", "{A6191154-EF30-40CF-BD38-6AF2AC085591}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggerService", "..\LoggerService\LoggerService.csproj", "{7DFA80FA-DE14-4307-A192-1F2A20F25023}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{572A3700-5C23-49BB-9C9B-88E0C57783E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{572A3700-5C23-49BB-9C9B-88E0C57783E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{572A3700-5C23-49BB-9C9B-88E0C57783E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6191154-EF30-40CF-BD38-6AF2AC085591}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6191154-EF30-40CF-BD38-6AF2AC085591}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6191154-EF30-40CF-BD38-6AF2AC085591}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6191154-EF30-40CF-BD38-6AF2AC085591}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DFA80FA-DE14-4307-A192-1F2A20F25023}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DFA80FA-DE14-4307-A192-1F2A20F25023}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DFA80FA-DE14-4307-A192-1F2A20F25023}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DFA80FA-DE14-4307-A192-1F2A20F25023}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
