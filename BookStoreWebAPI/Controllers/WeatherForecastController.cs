@@ -1,3 +1,4 @@
+using Contracts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookStoreWebAPI.Controllers
@@ -6,28 +7,21 @@ namespace BookStoreWebAPI.Controllers
 	[Route("[controller]")]
 	public class WeatherForecastController : ControllerBase
 	{
-		private static readonly string[] Summaries = new[]
-		{
-			"Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-		};
+		private readonly ILoggerManager _logger;
 
-		private readonly ILogger<WeatherForecastController> _logger;
-
-		public WeatherForecastController(ILogger<WeatherForecastController> logger)
-		{
+        public WeatherForecastController(ILoggerManager logger)
+        {
 			_logger = logger;
-		}
+        }
 
-		[HttpGet(Name = "GetWeatherForecast")]
-		public IEnumerable<WeatherForecast> Get()
+		[HttpGet]
+		public IActionResult Get()
 		{
-			return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-			{
-				Date = DateTime.Now.AddDays(index),
-				TemperatureC = Random.Shared.Next(-20, 55),
-				Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-			})
-			.ToArray();
+			_logger.LogInfo("Info message from custom logger service");
+			_logger.LogDebug("Debug message from custom logger service");
+			_logger.LogWarn("Warning message from custom logger service");
+			_logger.LogError("Error message from custom logger service");
+			return Ok();
 		}
-	}
+    }
 }

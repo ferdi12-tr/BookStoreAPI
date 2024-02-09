@@ -1,4 +1,7 @@
-﻿namespace BookStoreWebAPI.Extensions
+﻿using Contracts;
+using LoggerService;
+
+namespace BookStoreWebAPI.Extensions
 {
 	public static class ServiceExtensions
 	{
@@ -22,6 +25,13 @@
 			{
 				// leave with default options
 			});
+
+		/// <summary>
+		/// Custom Logger service with NLog
+		/// </summary>
+		/// <param name="services"></param>
+		public static void ConfigureLoggerService(this IServiceCollection services) =>
+			services.AddSingleton<ILoggerManager, LoggerManager>();
 	}
 
 }

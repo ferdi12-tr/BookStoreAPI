@@ -5,6 +5,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using BookStoreWebAPI.Extensions;
 using Microsoft.AspNetCore.HttpOverrides;
+using NLog;
+
 
 namespace BookStoreWebAPI
 {
@@ -13,6 +15,8 @@ namespace BookStoreWebAPI
 		public static void Main(string[] args)
 		{
 			var builder = WebApplication.CreateBuilder(args);
+
+			LogManager.Setup().LoadConfigurationFromFile(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
 
 			// Add services to the container.
 
@@ -26,6 +30,9 @@ namespace BookStoreWebAPI
 
 			//configure IIS
 			builder.Services.ConfigureIISIntegration();
+
+			//Add log service
+			builder.Services.ConfigureLoggerService();
 
             // All Custom Database Services
             builder.Services.AddTransient<IProductService, ProductService>();
