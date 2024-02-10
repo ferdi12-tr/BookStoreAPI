@@ -4,6 +4,9 @@ using Repository;
 
 namespace BookStoreWebAPI.ContextFactory
 {
+	/// <summary>
+	/// This helps us find the RepositoryContext class in another project while executing migrations.
+	/// </summary>
 	public class RepositoryContextFactory : IDesignTimeDbContextFactory<RepositoryContext>
 	{
 		public RepositoryContext CreateDbContext(string[] args)
