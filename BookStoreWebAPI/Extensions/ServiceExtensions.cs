@@ -1,5 +1,6 @@
 ﻿using Contracts;
 using LoggerService;
+using Repository;
 
 namespace BookStoreWebAPI.Extensions
 {
@@ -32,6 +33,12 @@ namespace BookStoreWebAPI.Extensions
 		/// <param name="services"></param>
 		public static void ConfigureLoggerService(this IServiceCollection services) =>
 			services.AddSingleton<ILoggerManager, LoggerManager>();
+
+		/// <summary>
+		/// Service to manage repository
+		/// </summary>
+		public static void ConfigureRepositoryManager(this IServiceCollection services) =>
+			services.AddScoped<IRepositoryManager, RepositoryManager>();
 	}
 
 }

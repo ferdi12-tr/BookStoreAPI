@@ -1,5 +1,3 @@
-using BookStoreWebAPI.Models.Interfaces;
-using BookStoreWebAPI.Models.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -19,6 +17,7 @@ namespace BookStoreWebAPI
 			LogManager.Setup().LoadConfigurationFromFile(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
 
 			// Add services to the container.
+			builder.Services.ConfigureRepositoryManager();
 
 			builder.Services.AddControllers();
 			// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -34,34 +33,6 @@ namespace BookStoreWebAPI
 			//Add log service
 			builder.Services.ConfigureLoggerService();
 
-            // All Custom Database Services
-            builder.Services.AddTransient<IProductService, ProductService>();
-			builder.Services.AddTransient<IBlogService, BlogService>();
-			builder.Services.AddTransient<IUserService, UserService>();
-			builder.Services.AddTransient<IOrderService, OrderService>();
-
-			//Authentication Services
-			builder.Services.AddTransient<IAuthService, AuthService>();
-
-			builder.Services.AddTransient<ITokenService, TokenService>();
-			builder.Services.AddAuthentication(option =>
-			{
-				option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-				option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-				option.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-			}).AddJwtBearer(o =>
-			{
-				o.TokenValidationParameters = new TokenValidationParameters
-				{
-					ValidIssuer = builder.Configuration["AppSettings:ValidIssuer"],
-					ValidAudience = builder.Configuration["AppSettings:ValidAudience"],
-					IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["AppSettings:Secret"])),
-					ValidateIssuer = true,
-					ValidateAudience = true,
-					ValidateLifetime = false,
-					ValidateIssuerSigningKey = true
-				};
-			});
 
 			//serialize the included object to json
 			builder.Services.AddControllers()
