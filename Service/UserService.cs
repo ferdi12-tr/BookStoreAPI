@@ -1,4 +1,5 @@
 ﻿using Contracts;
+using Entities.Models;
 using Service.Contracts;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,20 @@ namespace Service
 		{
 			_repository = repository;
 			_logger = logger;
+		}
+
+		public IEnumerable<User> GetAllUsers(bool trackChanges)
+		{
+			try
+			{
+				var user = _repository.User.GetAllUsers(trackChanges);
+				return user;
+			}
+			catch (Exception e)
+			{
+				_logger.LogError($"Something went wrong in the {nameof(GetAllUsers)} service method {e}");
+				throw;
+			}
 		}
 	}
 }

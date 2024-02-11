@@ -14,5 +14,12 @@ namespace Repository
         {
              
         }
-    }
+
+		public IEnumerable<User> GetAllUsers(bool trackChanges)
+		{
+			return FindAll(trackChanges)
+				.OrderBy(x => x.Name)
+				.ToList();
+		}
+	}
 }
