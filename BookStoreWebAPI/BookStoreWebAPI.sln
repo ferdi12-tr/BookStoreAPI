@@ -17,7 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service.Contracts", "..\Ser
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "..\Service\Service.csproj", "{1D185F1A-15B2-4A77-A793-7A0F7909F54D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStoreWebAPI.Presentation", "..\BookStoreWebAPI.Presentation\BookStoreWebAPI.Presentation.csproj", "{8AF7B897-53F9-40E4-B438-00D308C8A157}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookStoreWebAPI.Presentation", "..\BookStoreWebAPI.Presentation\BookStoreWebAPI.Presentation.csproj", "{8AF7B897-53F9-40E4-B438-00D308C8A157}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "..\Shared\Shared.csproj", "{F2DE061B-3504-4C27-83D5-A05842231FC9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{8AF7B897-53F9-40E4-B438-00D308C8A157}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8AF7B897-53F9-40E4-B438-00D308C8A157}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8AF7B897-53F9-40E4-B438-00D308C8A157}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2DE061B-3504-4C27-83D5-A05842231FC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2DE061B-3504-4C27-83D5-A05842231FC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2DE061B-3504-4C27-83D5-A05842231FC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2DE061B-3504-4C27-83D5-A05842231FC9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

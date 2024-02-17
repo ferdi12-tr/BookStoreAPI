@@ -1,4 +1,4 @@
-﻿using Entities.Models;
+﻿using Shared.DataTransferObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +9,6 @@ namespace Service.Contracts
 {
 	public interface IUserService
 	{
-		IEnumerable<User> GetAllUsers(bool trackChanges);
+		IEnumerable<UserDTO> GetAllUsers(bool trackChanges);
 	}
 }

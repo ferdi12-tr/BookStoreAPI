@@ -1,6 +1,7 @@
 ﻿using Contracts;
 using Entities.Models;
 using Service.Contracts;
+using Shared.DataTransferObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,12 +21,14 @@ namespace Service
 			_logger = logger;
 		}
 
-		public IEnumerable<User> GetAllUsers(bool trackChanges)
+		public IEnumerable<UserDTO> GetAllUsers(bool trackChanges)
 		{
 			try
 			{
 				var user = _repository.User.GetAllUsers(trackChanges);
-				return user;
+				var userDTO = user.Select(u => new UserDTO(u.Id, u.Image, u.Name, u.Email, u.Username))
+									.ToList();
+				return userDTO;
 			}
 			catch (Exception e)
 			{
