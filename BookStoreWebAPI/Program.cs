@@ -44,6 +44,8 @@ namespace BookStoreWebAPI
 				.AddNewtonsoftJson(opt =>
 								opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
+			// include automapper package
+			builder.Services.AddAutoMapper(typeof(Program));
 
 			var app = builder.Build();
 
